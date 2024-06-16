@@ -1,5 +1,5 @@
 // Define the Google Analytics ID
-const googleAnalyticsId = 'YOUR_GOOGLE_ANALYTICS_ID';
+const googleAnalyticsId = 'G-9BC6G0P9HR';
 
 // Load the Google Analytics script dynamically
 (function() {
@@ -15,6 +15,7 @@ const googleAnalyticsId = 'YOUR_GOOGLE_ANALYTICS_ID';
         }
         gtag('js', new Date());
         gtag('config', googleAnalyticsId);
+        window.gtag = gtag;
     };
 })();
 
