@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hisham Mardam-Bey's Links</title>
+    <title>Redirect Based on Query Parameter</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,7 +62,9 @@
         }
         gtag('js', new Date());
         gtag('config', 'G-9BC6G0P9HR');
-
+    </script>
+    <script src="config.js"></script>
+    <script>
         // JavaScript function to get query parameters
         function getQueryParams() {
             const params = {};
@@ -78,16 +80,7 @@
         // JavaScript function to handle redirection or show grid
         function handleRedirection() {
             const params = getQueryParams();
-            const id = params['id'];
-
-            // Define the URL map and logos based on IDs
-            const urlMap = {                
-                '1': { url: 'https://hisham.cc/', logo: 'https://www.gravatar.com/avatar/8ac7de375b1816679c3095f475f3a7f8.png', name: 'Blog' },
-                '2': { url: 'https://hmb.capital', logo: 'https://via.placeholder.com/100?text=Logo2', name: 'HMB Capital' },
-                '3': { url: 'https://github.com/mardambey/', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg', name: 'GitHub' },
-                '4': { url: 'https://linkedin.com/in/hishammardambey', logo: 'https://media.licdn.com/dms/image/C4E03AQEK--mPgGsg4w/profile-displayphoto-shrink_800_800/0/1582474785120?e=1724284800&v=beta&t=qHcBK8q7GDCUjkPBVcWsa9F7OXG3AkU0nKv24861LY8', name: 'LinkedIn' },
-                // Add more mappings as needed
-            };
+            const redirectId = params['redirect'];
 
             // Track page view
             gtag('event', 'page_view', {
@@ -95,16 +88,16 @@
             });
 
             // Redirect if ID is found in the map
-            if (urlMap[id]) {
+            if (urlMap[redirectId]) {
                 // Track the redirection event
                 gtag('event', 'redirect', {
                     'event_category': 'redirection',
-                    'event_label': 'Redirect to ' + urlMap[id].url,
-                    'value': id
+                    'event_label': 'Redirect to ' + urlMap[redirectId].url,
+                    'value': redirectId
                 });
 
                 // Redirect to the mapped URL
-                window.location.href = urlMap[id].url;
+                window.location.href = urlMap[redirectId].url;
             } else {
                 displayGrid(urlMap);
             }
