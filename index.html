@@ -70,3 +70,145 @@
     <div id="message">Processing your request...</div>
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect Based on Query Parameter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #message {
+            margin-bottom: 20px;
+        }
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 150px;
+        }
+        .grid-item img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+        .grid-item a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .grid-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9BC6G0P9HR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-9BC6G0P9HR');
+
+        // JavaScript function to get query parameters
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const regex = /([^&=]+)=([^&]*)/g;
+            let m;
+            while (m = regex.exec(queryString)) {
+                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+            }
+            return params;
+        }
+
+        // JavaScript function to handle redirection or show grid
+        function handleRedirection() {
+            const params = getQueryParams();
+            const id = params['id'];
+
+            // Define the URL map and logos based on IDs
+            const urlMap = {
+                '1': { url: 'https://hisham.cc/', logo: 'https://www.gravatar.com/avatar/8ac7de375b1816679c3095f475f3a7f8.png', name: 'Blog' },
+                '2': { url: 'https://hmb.capital', logo: 'https://via.placeholder.com/100?text=Logo2', name: 'HMB Capital' },
+                '3': { url: 'https://github.com/mardambey/', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg', name: 'GitHub' },
+                '4': { url: 'https://linkedin.com/in/hishammardambey', logo: 'https://media.licdn.com/dms/image/C4E03AQEK--mPgGsg4w/profile-displayphoto-shrink_800_800/0/1582474785120?e=1724284800&v=beta&t=qHcBK8q7GDCUjkPBVcWsa9F7OXG3AkU0nKv24861LY8', name: 'LinkedIn' },
+                // Add more mappings as needed
+            };
+
+            // Track page view
+            gtag('event', 'page_view', {
+                'page_path': window.location.pathname + window.location.search
+            });
+
+            // Redirect if ID is found in the map
+            if (urlMap[id]) {
+                // Track the redirection event
+                gtag('event', 'redirect', {
+                    'event_category': 'redirection',
+                    'event_label': 'Redirect to ' + urlMap[id].url,
+                    'value': id
+                });
+
+                // Redirect to the mapped URL
+                window.location.href = urlMap[id].url;
+            } else {
+                displayGrid(urlMap);
+            }
+        }
+
+        // Function to display the grid of links with logos
+        function displayGrid(urlMap) {
+            const gridContainer = document.createElement('div');
+            gridContainer.className = 'grid';
+
+            for (const key in urlMap) {
+                if (urlMap.hasOwnProperty(key)) {
+                    const item = urlMap[key];
+                    const gridItem = document.createElement('div');
+                    gridItem.className = 'grid-item';
+
+                    const img = document.createElement('img');
+                    img.src = item.logo;
+                    img.alt = item.name;
+
+                    const link = document.createElement('a');
+                    link.href = item.url;
+                    link.textContent = item.name;
+
+                    gridItem.appendChild(img);
+                    gridItem.appendChild(link);
+                    gridContainer.appendChild(gridItem);
+                }
+            }
+
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = 'Please select a page:';
+            document.body.appendChild(gridContainer);
+        }
+
+        // Run the redirection function on page load
+        window.onload = handleRedirection;
+    </script>
+</head>
+<body>
+    <div id="message">Processing your request...</div>
+</body>
+</html>
+
+
