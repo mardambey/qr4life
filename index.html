@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect Based on Query Parameter</title>
+    <title>Hisham Mardam-Bey</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,6 +16,9 @@
             padding: 20px;
             box-sizing: border-box;
             overflow: auto;
+        }
+        #content {
+            text-align: center;
         }
         #message {
             margin-bottom: 20px;
@@ -54,15 +57,6 @@
             text-decoration: underline;
         }
     </style>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9BC6G0P9HR"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-9BC6G0P9HR');
-    </script>
     <script src="config.js"></script>
     <script>
         // JavaScript function to get query parameters
@@ -105,6 +99,15 @@
 
         // Function to display the grid of links with logos
         function displayGrid(urlMap) {
+            const contentDiv = document.getElementById('content');
+            const titleElem = document.createElement('h1');
+            titleElem.textContent = gridTitle;
+            contentDiv.appendChild(titleElem);
+
+            const blurbElem = document.createElement('p');
+            blurbElem.textContent = gridBlurb;
+            contentDiv.appendChild(blurbElem);
+
             const gridContainer = document.createElement('div');
             gridContainer.className = 'grid';
 
@@ -128,9 +131,7 @@
                 }
             }
 
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = 'Please select a page:';
-            document.body.appendChild(gridContainer);
+            contentDiv.appendChild(gridContainer);
         }
 
         // Run the redirection function on page load
@@ -138,6 +139,8 @@
     </script>
 </head>
 <body>
-    <div id="message">Processing your request...</div>
+    <div id="content">
+        <div id="message">Processing your request...</div>
+    </div>
 </body>
 </html>
