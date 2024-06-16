@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Redirecting...</title>
+    <title>Redirecting...</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GOOGLE_ANALYTICS_ID"></script>
     <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        // Replace 'YOUR_GOOGLE_ANALYTICS_ID' with your actual Google Analytics ID
+        gtag('config', 'YOUR_GOOGLE_ANALYTICS_ID');
+
         // JavaScript function to get query parameters
         function getQueryParams() {
             const params = {};
@@ -30,8 +40,21 @@
                 // Add more mappings as needed
             };
 
+            // Track page view
+            gtag('event', 'page_view', {
+                'page_path': window.location.pathname + window.location.search
+            });
+
             // Redirect if ID is found in the map
             if (urlMap[id]) {
+                // Track the redirection event
+                gtag('event', 'redirect', {
+                    'event_category': 'redirection',
+                    'event_label': 'Redirect to ' + urlMap[id],
+                    'value': id
+                });
+
+                // Redirect to the mapped URL
                 window.location.href = urlMap[id];
             } else {
                 document.getElementById('message').textContent = 'Invalid or missing ID. No redirection performed.';
