@@ -102,7 +102,7 @@
             const contentDiv = document.getElementById('content');
             const titleElem = document.createElement('h1');
             titleElem.textContent = gridTitle;
-            contentDiv.replaceChild(titleElem, contentDiv.childNodes[0]);
+            contentDiv.appendChild(titleElem);
 
             const blurbElem = document.createElement('p');
             blurbElem.textContent = gridBlurb;
@@ -139,8 +139,7 @@
     </script>
 </head>
 <body>
-    <div id="content">
-        <div id="message">Processing your request...</div>
+    <div id="content">        
     </div>
 </body>
 </html>
