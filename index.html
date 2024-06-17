@@ -102,7 +102,7 @@
             const contentDiv = document.getElementById('content');
             const titleElem = document.createElement('h1');
             titleElem.textContent = gridTitle;
-            contentDiv.replaceChild(titleElem);
+            contentDiv.replaceChild(titleElem, contentDiv.childNodes[0]);
 
             const blurbElem = document.createElement('p');
             blurbElem.textContent = gridBlurb;
