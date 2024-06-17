@@ -8,6 +8,9 @@ const googleAnalyticsId = 'G-9BC6G0P9HR';
     script.src = `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`;
     document.head.appendChild(script);
 
+    // in case the below fails, we'll have a fallback
+    window.gtag = function() {};
+    
     script.onload = () => {
         window.dataLayer = window.dataLayer || [];
         function gtag() {
